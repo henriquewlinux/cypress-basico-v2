@@ -5,7 +5,10 @@
   "main": "src/index.html",
   "scripts": {
     "Cypress run": "npx cypress run",
-    "Cypress open": "npx cypress open"
+    "Cypress run mobile":"cypress run --config viewportWidth=410 viewportHeight=860",
+    "Cypress open": "npx cypress open --config viewportWidth=1280 viewportHeight=880",
+    "Cypress open mobile":"cypress open --config viewportWidth=410 viewportHeight=860"
+    
   },
   "repository": {
     "type": "git",
