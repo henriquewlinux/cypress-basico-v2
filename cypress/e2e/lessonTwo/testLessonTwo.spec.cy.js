@@ -1,5 +1,3 @@
-
-
 describe('Central de Atendimento ao Cliente TAT', function () {
   beforeEach(() => {
     cy.visit('./src/index.html')
@@ -10,9 +8,11 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     cy.get('#lastName').type('Silveira', { delay: 0 })
     cy.get('#email').type('henriquewlinux@gmail.com', { delay: 0 })
     cy.get('#open-text-area').type('comentario', { delay: 0 })
+    cy.clock()
     cy.contains('button', 'Enviar').click()
-
     cy.get('.success').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('exibe mensagem de erro ao submeter o formulário com um email com formatação inválida', function () {
@@ -20,9 +20,11 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     cy.get('#lastName').type('Silveira', { delay: 0 })
     cy.get('#email').type('henriquewlinux.gmail.com', { delay: 0 })
     cy.get('#open-text-area').type('comentario', { delay: 0 })
+    cy.clock()
     cy.contains('button', 'Enviar').click()
-
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
   })
 
   it('validar campo telefone vazio ao digitar valor não-numerico', function () {
@@ -37,9 +39,11 @@ describe('Central de Atendimento ao Cliente TAT', function () {
     cy.get('#email').type('henriquewlinux.gmail.com', { delay: 0 })
     cy.get('#open-text-area').type('comentario', { delay: 0 })
     cy.get('#phone-checkbox').check()
+    cy.clock()
     cy.contains('button', 'Enviar').click()
-
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.success').should('not.be.visible')
   })
 
   it('preenche e limpa os campos nome, sobrenome, email e telefone', function () {
@@ -63,11 +67,12 @@ describe('Central de Atendimento ao Cliente TAT', function () {
       .should('have.value', '71992341154')
     cy.get('#phone').clear().should('have.text', '')
   })
-
   it('exibe mensagem de erro ao submeter o formulário sem preencher os campos obrigatórios', function () {
+    cy.clock()
     cy.contains('button', 'Enviar').click()
-
     cy.get('.error').should('be.visible')
+    cy.tick(3000)
+    cy.get('.error').should('not.be.visible')
   })
 
   it('envia o formuário com sucesso usando um comando customizado', function () {

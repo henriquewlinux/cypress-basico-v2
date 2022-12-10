@@ -24,12 +24,14 @@
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
 
-Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function(){
+Cypress.Commands.add('fillMandatoryFieldsAndSubmit', function () {
   cy.get('#firstName').type('Henrique', { delay: 0 })
-    cy.get('#lastName').type('Silveira', { delay: 0 })
-    cy.get('#email').type('henriquewlinux@gmail.com', { delay: 0 })
-    cy.get('#open-text-area').type('comentario', { delay: 0 })
-    cy.contains('button', 'Enviar').click()
-
-    cy.get('.success').should('be.visible')
+  cy.get('#lastName').type('Silveira', { delay: 0 })
+  cy.get('#email').type('henriquewlinux@gmail.com', { delay: 0 })
+  cy.get('#open-text-area').type('comentario', { delay: 0 })
+  cy.clock()
+  cy.contains('button', 'Enviar').click()
+  cy.get('.success').should('be.visible')
+  cy.tick(3000)
+  cy.get('.success').should('not.be.visible')
 })
